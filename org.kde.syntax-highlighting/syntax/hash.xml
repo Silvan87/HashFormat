@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<language name="Hash" version="1" kateversion="5.0" section="Markup" extensions="*.hsh;" author="Silvan87" priority="10">
+<highlighting>
+  <contexts>
+    <context name="normalText" attribute="normal" lineEndContext="#stay">
+			<RegExpr attribute="controlFlow" context="jumpDelimiter" String="\\(?=\=\=\()" />
+			<RegExpr attribute="controlFlow" context="jumpDelimiter" String="\\(?=\)\=\=)" />
+			<StringDetect attribute="error" context="#stay" String="==()==" />
+      <StringDetect attribute="controlFlow" context="#stay" String="==(" />
+      <StringDetect attribute="controlFlow" context="#stay" String=")==" />
+      <RegExpr attribute="controlFlow" context="#stay" String="^[\s]*\\" />
+      <RegExpr attribute="comment" context="#stay" String="^[\s]*//.*" />
+      <RegExpr attribute="comment" context="multilineComment" String="^[\s]*/\*" beginRegion="Comment" />
+			<RegExpr attribute="comment" context="multilineComment2" String="^[\s]*#+$" beginRegion="Comment" />
+			<RegExpr attribute="comment" context="#stay" String="^[\s]*#+[^#0-9A-Za-z\_-].*" />
+			<RegExpr attribute="controlFlow" context="predicate" String="^[\s]*#" />
+			<RegExpr attribute="controlFlow" context="predicate" String="^[\s]*-+" />
+      <RegExpr attribute="controlFlow" context="substringPredicate" String="^[\s]*\." />
+    </context>
+		<context name="jumpDelimiter" attribute="normal" lineEndContext="#pop">
+			<StringDetect attribute="normal" context="#pop" String="==(" />
+			<StringDetect attribute="normal" context="#pop" String=")==" />
+		</context>
+    <context name="multilineComment" attribute="comment" lineEndContext="#stay">
+      <RegExpr attribute="comment" context="#pop" String="\*/$" endRegion="Comment" />
+    </context>
+    <context name="multilineComment2" attribute="comment" lineEndContext="#stay">
+      <RegExpr attribute="comment" context="#pop" String="^[\s]*#+$" endRegion="Comment" />
+    </context>
+    <context name="predicate" attribute="error" lineEndContext="#pop">
+			<RegExpr attribute="variable" context="#stay" String="[A-Za-z][0-9A-Za-z_-]*" />
+      <RegExpr attribute="controlFlow" context="#pop!jumpDelimiter" String="[\s]+\\(?=\=\=\()" />
+			<RegExpr attribute="controlFlow" context="#pop!normalText" String="[\s]+\\?" />
+			<RegExpr attribute="normal" context="#stay" String="[\s].*" />
+    </context>
+    <context name="substringPredicate" attribute="error" lineEndContext="#pop">
+			<RegExpr attribute="variable" context="#stay" String="[A-Za-z][0-9A-Za-z_-]*" />
+			<RegExpr attribute="error" context="#stay" String="[\s].*" />
+    </context>
+  </contexts>
+  <itemDatas>
+    <itemData name="normal" defStyleNum="dsNormal" />
+    <itemData name="comment" defStyleNum="dsComment" />
+    <itemData name="controlFlow" defStyleNum="dsControlFlow" />
+    <itemData name="variable" defStyleNum="dsVariable" />
+    <itemData name="error" defStyleNum="dsError" />
+  </itemDatas>
+</highlighting>
+</language>

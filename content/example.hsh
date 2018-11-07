@@ -1,0 +1,141 @@
+#=============================================================================|
+# HASH FORMAT AND SYNTAX EXPLANATION
+#=============================================================================|
+#
+	Any special symbol may be preceded by spaces or tabs without alterating it.
+#
+
+#=---------------------------------------------------------------------------=#
+# SINGLE LINE COMMENT
+#=---------------------------------------------------------------------------=#
+
+# This is a single line comment with hash and space
+//This is a single line comment with double slash
+
+	# If the comment symbol is preceded by other symbols, it is ignored.
+
+#=---------------------------------------------------------------------------=#
+# MULTILINE COMMENT
+#=---------------------------------------------------------------------------=#
+
+###
+	It begins with a solitary sequence of gates
+	and it ends in the same way.
+###
+
+/* You can also use C style comments with the foresight that /* must be at the
+beginning of the line and */ must be at the end of the line. */
+
+#=---------------------------------------------------------------------------=#
+# PREDICATE AND ITS VALUE
+#=---------------------------------------------------------------------------=#
+
+#title
+Hash Format Example Page
+
+#
+	The hash symbol specifies the name of the predicate: #title
+	That name can have lowercase and uppercase letters (which determine a
+	difference), dash - and underscore _ , numbers. It must start with a letter.
+	All subsequent text lines will constitute the value of that predicate.
+#
+
+#=---------------------------------------------------------------------------=#
+# MULTILINE PREDICATE VALUE AND ESCAPE CHAR
+#=---------------------------------------------------------------------------=#
+
+#title
+Another title
+\ similar to the previous one
+\ on more than one line
+
+#
+	At each line the spaces at the beginning and the end will be removed.
+	Then the lines will be concatenated without separation spaces.
+	To preserve a space between two lines, you must use the escape char: \
+	The escape chat can allow you to start a predicate value string with any
+	special char.
+#
+
+#escaped
+\#predicate
+\# Comment
+\\ the escape char itself
+
+#=---------------------------------------------------------------------------=#
+# PREDICATE LIST AND PSEUDO HIERARCHY
+#=---------------------------------------------------------------------------=#
+
+#paragraph
+This is a written text.
+-italian
+Questo è un testo scritto.
+
+#
+	An hash file generates a list of predicates and them values. The model script
+	can define what to do for each predicate. It's possibile to use dash - after
+	hash predicate to imply that the name with dash hooks to the previous one.
+	So here we have the predicates "paragraph" and the "paragraph-italian".
+#
+
+#list
+
+-item voice 1
+--spanish voz 1
+--german stimme 1
+
+-item voice 2
+--spanish voz 2
+--german stimme 2
+
+-item voice 3
+--spanish voz 3
+--german stimme 3
+
+#
+	With the number of dashes you can specify how the names are to be composed.
+	In the example above you will have: list, list-item, list-item-spanish,
+	list-item-german, list-item, list-item-spanish, list-item-german, etc.
+	Note that the predicate value can be placed after the predicate name.
+#
+
+#=---------------------------------------------------------------------------=#
+# SUBSTRINGS AND THEM PREDICATES
+#=---------------------------------------------------------------------------=#
+
+#paragraph
+This is a ==(text test)== to show
+\ ==(how the ==(substrings)== and their ==(nesting)== are specified)==.
+.bold
+.italic
+.bold
+.bold
+
+#
+	The predicates with the dot refer respectively to the beginnings ==( of the
+	substrings to indicate the relative whole substring.
+#
+
+#paragraph
+Example==(N)== with two notes==(N)==.
+
+#note This is the note 1.
+#note This is the note 2.
+
+#
+	When the predicates with the dot are not specified, then the first word of
+	the substring will be used as the name of the predicate, if a valid name is
+	not found then the predicate will be unnamed.
+#
+
+#=---------------------------------------------------------------------------=#
+# ESCAPE OF SUBSTRING DELIMITERS
+#=---------------------------------------------------------------------------=#
+
+#paragraph
+This string has \==(no substrings\)==.
+
+#
+	If you want to include the special chars ==( )== then you can use the escape
+	char, which allows this unique exception to use at the beginning of the line.
+#
