@@ -627,9 +627,9 @@ class HashModel:
 			outputFileText += self.closingText
 
 			# Write an output file
-			f = open(self.outputFolder + self.outputFileNames[n], 'w')
+			f = open(self.outputFolder + self.toGenerateOutputFileNames[n], 'w')
 			f.write(outputFileText)
 			f.close()
-			print(self.outputFileNames[n] + ' was generated.')
+			print(self.toGenerateOutputFileNames[n] + ' was generated.')
 
 		print('Operation terminated.')
